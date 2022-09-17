@@ -1,0 +1,41 @@
+{% extends "app/base.html"%}
+{% block title %} Result {% endblock title %}
+{% block content %}
+{% for message in messages %}
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>{{message}}</strong>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endfor %}
+<div class="d-flex align-items-center container my-5">
+    <form action="/addurecipe/" method="POST">
+        {% csrf_token %}
+            <div class="mb-3">
+                <label for="image" class="form-label">Enter your recipe final image</label>
+                <input class="form-control-file" type="file" id="image" name="image" accept="images/*" required>
+            </div>
+            <div class="mb-3">
+                <label for="recipename" class="form-label">Enter your recipe name</label>
+                <input type="text" class="form-control" id="recipename" name="recipename" required>
+            </div>
+            <div class="mb-3">
+                <label for="recipedescription" class="form-label">Enter the description of your recipe </label>
+                <input type="text" class="form-control" id="recipedescription" name="recipedescription" required>
+            </div>
+            <div class="mb-3">
+                <label for="recipeingredients" class="form-label">Enter ingredients of your recipe</label><br>
+                <textarea id="ingredients" name="ingredients" rows="8" cols="100" style="resize: none;" required></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="recipeingredients" class="form-label">Enter mechanism of your recipe</label><br>
+                <textarea id="mechanism" name="mechanism" rows="8" cols="100" style="resize: none;" required></textarea>
+                <div id="mechanismrecipe" class="form-text"> each step should be separated by new line or as per we provide
+                    you.</div>
+            </div>
+            <button type="submit" class="btn btn-success">Add recipe</button>
+    </form>
+</div>
+{% endblock content %}
+{% block script %}
+
+{% endblock script %}

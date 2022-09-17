@@ -1,0 +1,23 @@
+{% extends "app/base.html"%}
+{% block title %} {{recipe.recipe_name}} {% endblock title %}
+{% block content %}
+<div class="container my-4">
+  <div class="card d-flex align-items-center">
+    <img class="card-img-top" src="{{recipe.recipe_image.url}}" alt="Card image top" style="width: 50%;height: 50%;">
+    <div class="card-body">
+      <h3 class="card-title">{{recipe.recipe_name}}</h3><br>
+      <h5 class="card-subtitle">{{recipe.recipe_desc}}</h5><br>
+      <h3>Ingredients</h3>
+      <p class="card-text"> <strong> {{recipe.recipe_ingredients|linebreaks}} </strong></p>
+      <h3>Mechanism</h3>
+      <p class="card-text"> <strong>{{recipe.recipe_steps|linebreaks}} </strong></p>
+      {% if recipe.owner == request.user %}
+        <div class="btn-group">
+          <button type="button" class="btn btn-sm btn-outline-secondary"><a class="text-decoration-none text-dark" href="{% url 'app:editurecipe' recipe.id %}">Edit Recipe</a></button>
+          <button type="button" class="btn btn-sm btn-outline-secondary"><a class="text-decoration-none text-dark" href="{% url 'app:delete' recipe.id %}">Delete</a></button>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock content %}

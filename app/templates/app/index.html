@@ -1,0 +1,67 @@
+{% extends "app/base.html"%}
+{% block title %} Home {% endblock title %}
+{% block content %}
+{% for message in messages %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      <strong>{{message}}</strong>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+{% endfor %}
+<div class="container-fluid">
+  <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-label="Slide 1"
+        aria-current="true"></button>
+      <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2" class=""></button>
+      <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3" class=""></button>
+    </div>
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="https://source.unsplash.com/1400x550/?veg recipes,chef" class="d-block w-100" alt="">
+      </div>
+      <div class="carousel-item">
+        <img src="https://source.unsplash.com/1400x550/?veg food,coffee" class="d-block w-100" alt="">
+      </div>
+      <div class="carousel-item">
+        <img src="https://source.unsplash.com/1400x550/?veg pizza, pepsi" class="d-block w-100" alt="">
+
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+</div>
+<div class="container">
+  <div class="album py-5 bg-light">
+    <div class="container">
+
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+        {% for recipe in recipes %}
+        <a href="{% url 'app:recipe' recipe.id %}" class="text-decoration-none text-dark">
+          <div class="col">
+            <div class="card shadow-sm">
+              <img src="{{recipe.recipe_image.url}}" alt="">
+
+              <div class="card-body">
+                <p class="card-text fw-bold fs-4">{{recipe.recipe_name}}</p>
+                <p class="card-text ">{{recipe.recipe_desc}}</p>
+
+              </div>
+            </div>
+          </div>
+        </a>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}
+{% block script %}
+
+{% endblock script %}
