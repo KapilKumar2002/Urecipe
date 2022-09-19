@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-ga%(b+35%%c#w^0&-)shplc*+r^8+&zffg#3ga(&s230$4x!-z'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["urecipeproject.herokuapp.com"]
 
