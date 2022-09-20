@@ -7,7 +7,7 @@
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
 {% endfor %}
-<div class="d-flex align-items-center container my-5">
+<div class="d-flex justify-content-center container my-5">
     <form action="/editurecipe/{{recipe.id}}" method="POST">
         {% csrf_token %}
             <div class="mb-3">
@@ -22,15 +22,18 @@
                 <label for="recipedescription" class="form-label">Enter the description of your recipe </label>
                 <input type="text" class="form-control" id="recipedescription" name="recipedescription" value="{{recipe.recipe_desc}}" required>
             </div>
-            <div class="mb-3">
-                <label for="recipeingredients" class="form-label">Enter ingredients of your recipe</label><br>
-                <textarea id="ingredients" name="ingredients" rows="15" cols="100" style="resize: none;" required>{{recipe.recipe_ingredients}}</textarea>
+            <div class="form-floating">
+                <div>
+                    <label for="recipeingredients" class="form-label">Enter ingredients</label>
+                </div>
+                <textarea class="form-control" name="ingredients"  id="ingredients" id="floatingTextarea" style="height: 200px">{{recipe.recipe_ingredients}}</textarea>
             </div>
-            <div class="mb-3">
-                <label for="recipeingredients" class="form-label">Enter mechanism of your recipe</label><br>
-                <textarea id="mechanism" name="mechanism" rows="15" cols="100" style="resize: none;" required>{{recipe.recipe_steps}}</textarea>
-                <div id="mechanismrecipe" class="form-text"> each step should be separated by new line or as per we provide
-                    you.</div>
+            <div class="form-floating mb-4">
+                <div>
+                    <label for="recipeingredients" class="form-label">Enter the steps of your recipe.</label>
+                </div>
+                <textarea class="form-control" name="mechanism"  id="mechanism" id="floatingTextarea" style="height: 200px">{{recipe.recipe_steps}}</textarea>
+                <div id="mechanismrecipe" class="form-text"> each step should be separated by new line or as per we provide you.</div>
             </div>
             <button type="submit" class="btn btn-success">Update</button>
     </form>
