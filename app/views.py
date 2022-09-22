@@ -14,7 +14,7 @@ def index(request):
         if user is not None:
             loginuser = False
             auth.login(request,user)
-            messages.info(request, "Successful")
+            messages.info(request, "Successful!")
         else:
             messages.info(request, "Invalid credentials!")
     if loginuser:
@@ -36,9 +36,9 @@ def search(request):
         if email and username and password1 and password2:
             if password1 == password2 and len(password1)>=8 and len(username)>=8:
                 if User.objects.filter(username=username).exists():
-                    messages.info(request, "Username already exists")
+                    messages.info(request, "Username already exists!")
                 elif User.objects.filter(email=email).exists():
-                    messages.info(request, "Email already exists")
+                    messages.info(request, "Email already exists!")
                 else:
                     user = User.objects.create_user(username=username,email=email, password=password1)
                     user.save()
