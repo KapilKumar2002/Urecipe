@@ -48,8 +48,8 @@
         {% if user.is_authenticated %}
           <a href="{% url 'app:logout' %}" class="text-light">Log out</a>
         {% else %}
-          <button type="button" class="btn btn-outline-info me-2 " data-bs-toggle="modal" data-bs-target="#loginModal">Log In</button>
-          <button type="button" class="btn btn-outline-info me-2" data-bs-toggle="modal" data-bs-target="#signupModal">Sign Up</button>
+          <button type="button" class="btn btn-outline-info m-1 text-center" data-bs-toggle="modal" data-bs-target="#loginModal">Log In</button>
+          <button type="button" class="btn btn-outline-info m-1" data-bs-toggle="modal" data-bs-target="#signupModal">Sign Up</button>
         {% endif %}
         </div>
     </div>
