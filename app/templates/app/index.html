@@ -2,10 +2,10 @@
 {% block title %} Home {% endblock title %}
 {% block content %}
 {% for message in messages %}
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-      <strong>{{message}}</strong>
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+  <strong>{{message}}</strong>
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
 {% endfor %}
 <div class="container-fluid">
   <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
@@ -45,13 +45,11 @@
         {% for recipe in recipes %}
         <a href="{% url 'app:recipe' recipe.id %}" class="text-decoration-none text-dark">
           <div class="col">
-            <div class="card shadow-sm">
-              <img src="{{recipe.recipe_image.url}}" alt="" class="card-img-top" style="height:20rem">
-
+            <div class="card shadow-m p-2" style="height:28rem ;">
+              <img class="card-img-top" style="height:20rem" src="{{recipe.recipe_image.url}}" alt="connect">
               <div class="card-body">
                 <p class="card-text fw-bold fs-4">{{recipe.recipe_name}}</p>
                 <p class="card-text ">{{recipe.recipe_desc}}</p>
-
               </div>
             </div>
           </div>
