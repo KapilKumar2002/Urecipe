@@ -1,5 +1,6 @@
 {% extends "app/base.html"%}
-{% block title %} Edit Recipe {% endblock title %}
+{% load bootstrap3 %}
+{% block title %} Result {% endblock title %}
 {% block content %}
 {% for message in messages %}
 <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -8,34 +9,10 @@
 </div>
 {% endfor %}
 <div class="d-flex justify-content-center container my-5">
-    <form action="/editurecipe/{{recipe.id}}" method="POST">
+    <form action="/editurecipe/{{recipe.id}}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
-            <div class="mb-3">
-                <label for="image" class="form-label">Enter your recipe final image</label>
-                <input class="form-control-file" type="file" id="image" name="image" accept="images/*" value="{{recipe.recipe_image}}">
-            </div>
-            <div class="mb-3">
-                <label for="recipename" class="form-label">Enter your recipe name</label>
-                <input type="text" class="form-control" id="recipename" name="recipename" value="{{recipe.recipe_name}}" required>
-            </div>
-            <div class="mb-3">
-                <label for="recipedescription" class="form-label">Enter the description of your recipe </label>
-                <input type="text" class="form-control" id="recipedescription" name="recipedescription" value="{{recipe.recipe_desc}}" required>
-            </div>
-            <div class="form-floating">
-                <div>
-                    <label for="recipeingredients" class="form-label">Enter ingredients</label>
-                </div>
-                <textarea class="form-control" name="ingredients"  id="ingredients" id="floatingTextarea" style="height: 200px">{{recipe.recipe_ingredients}}</textarea>
-            </div>
-            <div class="form-floating mb-4">
-                <div>
-                    <label for="recipeingredients" class="form-label">Enter the steps of your recipe.</label>
-                </div>
-                <textarea class="form-control" name="mechanism"  id="mechanism" id="floatingTextarea" style="height: 200px">{{recipe.recipe_steps}}</textarea>
-                <div id="mechanismrecipe" class="form-text"> each step should be separated by new line or as per we provide you.</div>
-            </div>
-            <button type="submit" class="btn btn-success">Update</button>
+        {% bootstrap_form form %}
+            <button type="submit" class="btn btn-success my-4">Update</button>
     </form>
 </div>
 {% endblock content %}
