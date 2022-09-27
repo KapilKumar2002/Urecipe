@@ -15,7 +15,7 @@ def index(request):
         if user is not None:
             loginuser = False
             auth.login(request,user)
-            messages.info(request, "Successful")
+            messages.info(request, "Successful!")
         else:
             messages.info(request, "Invalid credentials!")
     if loginuser:
