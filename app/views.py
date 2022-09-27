@@ -2,6 +2,7 @@ import re
 from django.shortcuts import render,redirect
 from django.contrib.auth.models import User, auth
 from django.contrib import messages
+from app.forms import RecipeForm
 from app.models import Urecipe
 
 def index(request):
@@ -14,7 +15,7 @@ def index(request):
         if user is not None:
             loginuser = False
             auth.login(request,user)
-            messages.info(request, "Successful!")
+            messages.info(request, "Successful")
         else:
             messages.info(request, "Invalid credentials!")
     if loginuser:
@@ -36,9 +37,9 @@ def search(request):
         if email and username and password1 and password2:
             if password1 == password2 and len(password1)>=8 and len(username)>=8:
                 if User.objects.filter(username=username).exists():
-                    messages.info(request, "Username already exists!")
+                    messages.info(request, "Username already exists")
                 elif User.objects.filter(email=email).exists():
-                    messages.info(request, "Email already exists!")
+                    messages.info(request, "Email already exists")
                 else:
                     user = User.objects.create_user(username=username,email=email, password=password1)
                     user.save()
@@ -75,46 +76,33 @@ def logout(request):
 
 
 def addurecipe(request):
-    if request.method == "POST":
-        image = request.POST['image']
-        urecipe = request.POST['recipename']
-        recipe_desc = request.POST['recipedescription']
-        ingredients = request.POST['ingredients']
-        mechanism = request.POST['mechanism']
-        if urecipe and recipe_desc and ingredients and mechanism:
-            recipe = Urecipe()
-            recipe.recipe_image = image
-            recipe.recipe_name = urecipe
-            recipe.recipe_desc = recipe_desc
-            recipe.recipe_ingredients = ingredients
-            recipe.recipe_steps = mechanism
-            recipe.owner = request.user
-            recipe.save()
+
+    form = RecipeForm()
+    if request.method == 'POST':  
+        form = RecipeForm(request.POST,request.FILES)  
+        if form.is_valid(): 
+            addrecipe = form.save(commit=False)  
+            addrecipe.owner = request.user
+            addrecipe.save()
             messages.info(request, "Successful!")
-            return redirect("/")
-    else:
-        return render(request, "app/add_urecipe.html")
+            return redirect("/") 
+
+    
+    return render(request, 'app/add_urecipe.html', {'form': form})  
+
 
 def editurecipe(request,recipe_id):
-    name = Urecipe.objects.get(id=recipe_id)
+    recipe = Urecipe.objects.get(id=recipe_id)
     if request.method == "POST":
-        image = name.recipe_image
-        recipename = request.POST['recipename']
-        desc = request.POST['recipedescription']
-        ingredients = request.POST['ingredients']
-        steps = request.POST['mechanism']
-        if recipename and desc and ingredients and steps:
-            name.recipe_image = image
-            name.recipe_name = recipename
-            name.recipe_desc = desc
-            name.recipe_ingredients = ingredients
-            name.recipe_steps = steps
-            name.owner = name.owner
-            name.save()
+        form = RecipeForm(instance=recipe, data=request.POST, files=request.FILES)
+        if form.is_valid():
+            form.save()
             messages.info(request, "Successful!")
             return redirect("/")
+        
     else:    
-        return render(request, "app/edit.html",{"recipe":name})
+        form = RecipeForm(instance=recipe)
+        return render(request, "app/edit.html",{"form":form,'recipe':recipe})
 
 def delete(request, id):
     name = Urecipe.objects.filter(id=id)
