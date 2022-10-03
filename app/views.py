@@ -29,28 +29,7 @@ def recipe(request,id):
     return render(request, 'app/recipe.html',{"recipe":name})
 
 def search(request):
-    if request.method == "POST":
-        email = request.POST['Email']
-        username = request.POST['Username']
-        password1 = request.POST['Password']
-        password2 = request.POST['ConfirmPassword']
-        if email and username and password1 and password2:
-            if password1 == password2 and len(password1)>=8 and len(username)>=8:
-                if User.objects.filter(username=username).exists():
-                    messages.info(request, "Username already exists")
-                elif User.objects.filter(email=email).exists():
-                    messages.info(request, "Email already exists")
-                else:
-                    user = User.objects.create_user(username=username,email=email, password=password1)
-                    user.save()
-                    messages.info(request, "Successful!")
-                    return redirect("/")
-            else:
-                messages.info(request, "Password not matching!")
-        else:
-            messages.info(request, "Fill the credentials!")
-
-    elif request.method == "GET":
+    if request.method == "GET":
         search = request.GET.get('query')
         if search:
             recipe1 = Urecipe.objects.filter(recipe_ingredients__icontains=search)
@@ -67,13 +46,33 @@ def search(request):
     else:
         return render(request,"app:index")
 
-    return render(request,"app/search.html")
-
-
 def logout(request):
     auth.logout(request)
     return redirect("/")
 
+def signup(request):
+    if request.method == "POST":
+        email = request.POST['Email']
+        username = request.POST['Username']
+        password1 = request.POST['Password']
+        password2 = request.POST['ConfirmPassword']
+        if email and username and password1 and password2:
+            if password1 == password2 and len(password1)>=8 and len(username)>=8:
+                if User.objects.filter(username=username).exists():
+                    messages.info(request, "Username already exists!")
+                elif User.objects.filter(email=email).exists():
+                    messages.info(request, "Email already exists!")
+                else:
+                    user = User.objects.create_user(username=username,email=email, password=password1)
+                    user.save()
+                    messages.info(request, "Successful!")
+                    return redirect("/")
+            else:
+                messages.info(request, "Password not matching!")
+                return redirect("/")
+        else:
+            messages.info(request, "Fill the credentials!")
+            return redirect("/")
 
 def addurecipe(request):
 
