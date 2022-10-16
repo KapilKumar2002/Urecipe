@@ -2,7 +2,7 @@ from django.urls import path
 from app import views
 app_name= "app"
 urlpatterns = [
-    path('https://kapilkumar2002.github.io/Urecipe/',views.index,name="index"),
+    path('',views.index,name="index"),
     path('<int:id>/', views.recipe, name='recipe'),
     path('signup',views.signup, name="signup"),
     path('logout/',views.logout, name="logout"),
